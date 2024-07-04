@@ -28,12 +28,28 @@ public:
     ~Vector() {
         delete vec;
     }
-
+    
     Vector(const Vector & other) : vec(nullptr) {
         if (dynamic_cast<ArraySequence<T>*>(other.vec)) {
             vec = new ArraySequence<T>(*dynamic_cast<ArraySequence<T>*>(other.vec));
         } else if (dynamic_cast<ListSequence<T>*>(other.vec)) {
             vec = new ListSequence<T>(*dynamic_cast<ListSequence<T>*>(other.vec));
+        }
+    }
+
+    Vector(T* arr, int size, int type) {
+        if (type == 1) {
+            vec = new ArraySequence<T>(size);
+            for (int i = 0; i < size; i++) {
+                vec->Append(arr[i]);
+            }
+        } else if (type == 2) {
+            vec = new ListSequence<T>(size);
+            for (int i = 0; i < size; i++) {
+                vec->Append(arr[i]);
+            }
+        } else {
+            throw invalid_argument("Invalid type");
         }
     }
 
