@@ -38,20 +38,14 @@ public:
     }
 
     Vector(T* arr, int size, int type) {
-        if (type == 1) {
-            vec = new ArraySequence<T>(size);
-            for (int i = 0; i < size; i++) {
-                vec->Append(arr[i]);
-            }
-        } else if (type == 2) {
-            vec = new ListSequence<T>(size);
-            for (int i = 0; i < size; i++) {
-                vec->Append(arr[i]);
-            }
-        } else {
-            throw invalid_argument("Invalid type");
-        }
+    if (type == 1) {
+        vec = new ArraySequence<T>(arr, size);
+    } else if (type == 2) {
+        vec = new ListSequence<T>(arr, size);
+    } else {
+        throw invalid_argument("Invalid type");
     }
+}
 
     void set(const int & index, const T & item) {
         vec->Set(index, item);
